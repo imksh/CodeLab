@@ -1,0 +1,217 @@
+[
+  {
+    "title": "Sum Two Numbers",
+    "description": "Given two integers `a` and `b`, return the sum of the two integers.",
+    "difficulty": "EASY",
+    "timeLimit": 2,
+    "memoryLimit": 256,
+    "constraints": ["-10^9 <= a, b <= 10^9"],
+    "examples": [
+      {
+        "input": "5 7",
+        "output": "12",
+        "explanation": "5 + 7 = 12."
+      },
+      {
+        "input": "-3 2",
+        "output": "-1",
+        "explanation": "-3 + 2 = -1."
+      }
+    ],
+    "starterCode": {
+      "java": "class Solution {\n    public int sum(int a, int b) {\n        \n    }\n}",
+      "python": "class Solution:\n    def sum(self, a: int, b: int) -> int:\n        pass",
+      "javascript": "/**\n * @param {number} a\n * @param {number} b\n * @return {number}\n */\nvar sum = function(a, b) {\n    \n};",
+      "cpp": "class Solution {\npublic:\n    int sum(int a, int b) {\n        \n    }\n};"
+    },
+    "driverCode": {
+      "javascript": "const fs = require('fs');\nconst input = fs.readFileSync(0, 'utf-8').trim().split(/\\s+/);\nif (input.length < 2) process.exit(0);\nconst a = Number(input[0]);\nconst b = Number(input[1]);\nconst result = sum(a, b);\nconsole.log(result);",
+      "python": "import sys\n\nif __name__ == '__main__':\n    input_data = sys.stdin.read().split()\n    if len(input_data) >= 2:\n        a = int(input_data[0])\n        b = int(input_data[1])\n        sol = Solution()\n        print(sol.sum(a, b))",
+      "cpp": "#include <iostream>\nusing namespace std;\n\n/*USER_CODE_HERE*/\n\nint main() {\n    int a, b;\n    if (cin >> a >> b) {\n        Solution sol;\n        cout << sol.sum(a, b) << endl;\n    }\n    return 0;\n}",
+      "java": "import java.util.*;\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        if(sc.hasNextInt()) {\n            int a = sc.nextInt();\n            int b = sc.nextInt();\n            Solution sol = new Solution();\n            System.out.println(sol.sum(a, b));\n        }\n    }\n}"
+    },
+    "testCases": [
+      { "input": "5 7", "output": "12", "isHidden": false },
+      { "input": "-3 2", "output": "-1", "isHidden": false },
+      { "input": "100 200", "output": "300", "isHidden": true },
+      { "input": "0 0", "output": "0", "isHidden": true }
+    ],
+    "hints": ["Just use the + operator."],
+    "solution": {
+      "approach": "Return a + b.",
+      "timeComplexity": "O(1)",
+      "spaceComplexity": "O(1)"
+    },
+    "likes": 1200,
+    "dislikes": 50
+  },
+  {
+    "title": "Reverse String",
+    "description": "Write a function that reverses a string. The input string is given as a sequence of characters without spaces.",
+    "difficulty": "EASY",
+    "timeLimit": 2,
+    "memoryLimit": 256,
+    "constraints": ["1 <= s.length <= 10^5"],
+    "examples": [
+      {
+        "input": "hello",
+        "output": "olleh",
+        "explanation": "Reversed string is 'olleh'."
+      }
+    ],
+    "starterCode": {
+      "java": "class Solution {\n    public String reverseString(String s) {\n        \n    }\n}",
+      "python": "class Solution:\n    def reverseString(self, s: str) -> str:\n        pass",
+      "javascript": "/**\n * @param {string} s\n * @return {string}\n */\nvar reverseString = function(s) {\n    \n};",
+      "cpp": "#include <string>\nusing namespace std;\nclass Solution {\npublic:\n    string reverseString(string s) {\n        \n    }\n};"
+    },
+    "driverCode": {
+      "javascript": "const fs = require('fs');\nconst input = fs.readFileSync(0, 'utf-8').trim();\nconst result = reverseString(input);\nconsole.log(result);",
+      "python": "import sys\n\nif __name__ == '__main__':\n    s = sys.stdin.read().strip()\n    sol = Solution()\n    print(sol.reverseString(s))",
+      "cpp": "#include <iostream>\nusing namespace std;\n\n/*USER_CODE_HERE*/\n\nint main() {\n    string s;\n    if (cin >> s) {\n        Solution sol;\n        cout << sol.reverseString(s) << endl;\n    }\n    return 0;\n}",
+      "java": "import java.util.*;\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        if(sc.hasNext()) {\n            String s = sc.next();\n            Solution sol = new Solution();\n            System.out.println(sol.reverseString(s));\n        }\n    }\n}"
+    },
+    "testCases": [
+      { "input": "hello", "output": "olleh", "isHidden": false },
+      { "input": "world", "output": "dlrow", "isHidden": false },
+      { "input": "a", "output": "a", "isHidden": true },
+      { "input": "racecar", "output": "racecar", "isHidden": true }
+    ],
+    "hints": ["You can use two pointers, or built-in functions."],
+    "solution": {
+      "approach": "Reverse the string.",
+      "timeComplexity": "O(N)",
+      "spaceComplexity": "O(N)"
+    },
+    "likes": 800,
+    "dislikes": 20
+  },
+  {
+    "title": "Square of a Number",
+    "description": "Given an integer `x`, return the square of `x`.",
+    "difficulty": "EASY",
+    "timeLimit": 2,
+    "memoryLimit": 256,
+    "constraints": ["-10^4 <= x <= 10^4"],
+    "examples": [
+      {
+        "input": "5",
+        "output": "25",
+        "explanation": "5 * 5 = 25."
+      }
+    ],
+    "starterCode": {
+      "java": "class Solution {\n    public int square(int x) {\n        \n    }\n}",
+      "python": "class Solution:\n    def square(self, x: int) -> int:\n        pass",
+      "javascript": "/**\n * @param {number} x\n * @return {number}\n */\nvar square = function(x) {\n    \n};",
+      "cpp": "class Solution {\npublic:\n    int square(int x) {\n        \n    }\n};"
+    },
+    "driverCode": {
+      "javascript": "const fs = require('fs');\nconst input = fs.readFileSync(0, 'utf-8').trim();\nif (!input) process.exit(0);\nconst x = Number(input);\nconsole.log(square(x));",
+      "python": "import sys\n\nif __name__ == '__main__':\n    x = sys.stdin.read().strip()\n    if x:\n        sol = Solution()\n        print(sol.square(int(x)))",
+      "cpp": "#include <iostream>\nusing namespace std;\n\n/*USER_CODE_HERE*/\n\nint main() {\n    int x;\n    if (cin >> x) {\n        Solution sol;\n        cout << sol.square(x) << endl;\n    }\n    return 0;\n}",
+      "java": "import java.util.*;\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        if(sc.hasNextInt()) {\n            int x = sc.nextInt();\n            Solution sol = new Solution();\n            System.out.println(sol.square(x));\n        }\n    }\n}"
+    },
+    "testCases": [
+      { "input": "5", "output": "25", "isHidden": false },
+      { "input": "-3", "output": "9", "isHidden": false },
+      { "input": "0", "output": "0", "isHidden": true },
+      { "input": "100", "output": "10000", "isHidden": true }
+    ],
+    "hints": ["Multiply the number by itself."],
+    "solution": {
+      "approach": "Return x * x.",
+      "timeComplexity": "O(1)",
+      "spaceComplexity": "O(1)"
+    },
+    "likes": 400,
+    "dislikes": 5
+  },
+  {
+    "title": "Is Even",
+    "description": "Given an integer `x`, return `true` if `x` is even, otherwise `false`.",
+    "difficulty": "EASY",
+    "timeLimit": 2,
+    "memoryLimit": 256,
+    "constraints": ["-10^9 <= x <= 10^9"],
+    "examples": [
+      {
+        "input": "4",
+        "output": "true",
+        "explanation": "4 is divisible by 2."
+      },
+      {
+        "input": "7",
+        "output": "false",
+        "explanation": "7 is not divisible by 2."
+      }
+    ],
+    "starterCode": {
+      "java": "class Solution {\n    public boolean isEven(int x) {\n        \n    }\n}",
+      "python": "class Solution:\n    def isEven(self, x: int) -> bool:\n        pass",
+      "javascript": "/**\n * @param {number} x\n * @return {boolean}\n */\nvar isEven = function(x) {\n    \n};",
+      "cpp": "class Solution {\npublic:\n    bool isEven(int x) {\n        \n    }\n};"
+    },
+    "driverCode": {
+      "javascript": "const fs = require('fs');\nconst input = fs.readFileSync(0, 'utf-8').trim();\nif (!input) process.exit(0);\nconst x = Number(input);\nconsole.log(isEven(x) ? 'true' : 'false');",
+      "python": "import sys\n\nif __name__ == '__main__':\n    x = sys.stdin.read().strip()\n    if x:\n        sol = Solution()\n        print(str(sol.isEven(int(x))).lower())",
+      "cpp": "#include <iostream>\nusing namespace std;\n\n/*USER_CODE_HERE*/\n\nint main() {\n    int x;\n    if (cin >> x) {\n        Solution sol;\n        cout << (sol.isEven(x) ? \"true\" : \"false\") << endl;\n    }\n    return 0;\n}",
+      "java": "import java.util.*;\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        if(sc.hasNextInt()) {\n            int x = sc.nextInt();\n            Solution sol = new Solution();\n            System.out.println(sol.isEven(x) ? \"true\" : \"false\");\n        }\n    }\n}"
+    },
+    "testCases": [
+      { "input": "4", "output": "true", "isHidden": false },
+      { "input": "7", "output": "false", "isHidden": false },
+      { "input": "0", "output": "true", "isHidden": true },
+      { "input": "-2", "output": "true", "isHidden": true }
+    ],
+    "hints": ["Use the modulo operator."],
+    "solution": {
+      "approach": "Return x % 2 == 0.",
+      "timeComplexity": "O(1)",
+      "spaceComplexity": "O(1)"
+    },
+    "likes": 500,
+    "dislikes": 12
+  },
+  {
+    "title": "Multiply Three Numbers",
+    "description": "Given three integers `a`, `b`, and `c`, return their product.",
+    "difficulty": "EASY",
+    "timeLimit": 2,
+    "memoryLimit": 256,
+    "constraints": ["-1000 <= a, b, c <= 1000"],
+    "examples": [
+      {
+        "input": "2 3 4",
+        "output": "24",
+        "explanation": "2 * 3 * 4 = 24."
+      }
+    ],
+    "starterCode": {
+      "java": "class Solution {\n    public int multiply(int a, int b, int c) {\n        \n    }\n}",
+      "python": "class Solution:\n    def multiply(self, a: int, b: int, c: int) -> int:\n        pass",
+      "javascript": "/**\n * @param {number} a\n * @param {number} b\n * @param {number} c\n * @return {number}\n */\nvar multiply = function(a, b, c) {\n    \n};",
+      "cpp": "class Solution {\npublic:\n    int multiply(int a, int b, int c) {\n        \n    }\n};"
+    },
+    "driverCode": {
+      "javascript": "const fs = require('fs');\nconst input = fs.readFileSync(0, 'utf-8').trim().split(/\\s+/);\nif (input.length < 3) process.exit(0);\nconst a = Number(input[0]);\nconst b = Number(input[1]);\nconst c = Number(input[2]);\nconsole.log(multiply(a, b, c));",
+      "python": "import sys\n\nif __name__ == '__main__':\n    input_data = sys.stdin.read().split()\n    if len(input_data) >= 3:\n        a = int(input_data[0])\n        b = int(input_data[1])\n        c = int(input_data[2])\n        sol = Solution()\n        print(sol.multiply(a, b, c))",
+      "cpp": "#include <iostream>\nusing namespace std;\n\n/*USER_CODE_HERE*/\n\nint main() {\n    int a, b, c;\n    if (cin >> a >> b >> c) {\n        Solution sol;\n        cout << sol.multiply(a, b, c) << endl;\n    }\n    return 0;\n}",
+      "java": "import java.util.*;\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        if(sc.hasNextInt()) {\n            int a = sc.nextInt();\n            int b = sc.nextInt();\n            int c = sc.nextInt();\n            Solution sol = new Solution();\n            System.out.println(sol.multiply(a, b, c));\n        }\n    }\n}"
+    },
+    "testCases": [
+      { "input": "2 3 4", "output": "24", "isHidden": false },
+      { "input": "-1 5 2", "output": "-10", "isHidden": false },
+      { "input": "0 100 200", "output": "0", "isHidden": true },
+      { "input": "-2 -3 -4", "output": "-24", "isHidden": true }
+    ],
+    "hints": ["Multiply a * b * c."],
+    "solution": {
+      "approach": "Return a * b * c.",
+      "timeComplexity": "O(1)",
+      "spaceComplexity": "O(1)"
+    },
+    "likes": 600,
+    "dislikes": 30
+  }
+]
