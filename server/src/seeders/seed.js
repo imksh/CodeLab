@@ -38,20 +38,33 @@ const seedDatabase = async () => {
 
     // 1. Seed Demo User
     const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash("ksh777", salt);
+    const hashedPassword = await bcrypt.hash("demo@123", salt);
 
-    // const demoUser = await User.create({
-    //   name: "Karan Sharma",
-    //   email: "karan03945@gmail.com",
-    //   phone: "1234567890",
-    //   password: hashedPassword,
-    //   role: "user",
-    //   status: "active",
-    //   avatar: {
-    //     url: "https://placehold.co/600x400?text=D",
-    //     publicId: ""
-    //   }
-    // });
+    const demoUser = await User.create({
+      name: "Karan Sharma",
+      email: "karan03945@gmail.com",
+      phone: "1234567890",
+      password: hashedPassword,
+      role: "user",
+      status: "active",
+      avatar: {
+        url: "https://placehold.co/600x400?text=K",
+        publicId: ""
+      }
+    });
+
+    const demoUser1 = await User.create({
+      name: "Demo User",
+      email: "demo@codelab.com",
+      phone: "1234567890",
+      password: hashedPassword,
+      role: "user",
+      status: "active",
+      avatar: {
+        url: "https://placehold.co/600x400?text=K",
+        publicId: ""
+      }
+    });
 
     console.log("Demo User created: karan03945@gmail.com / ksh777");
 
