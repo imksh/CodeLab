@@ -41,71 +41,143 @@ const LANGUAGE_CONFIG = {
  * @param {number} memoryLimit - Memory limit in MB
  * @returns {Promise<{stdout: string, stderr: string, error: string, executionTime: number}>}
  */
-export const executeCode = async (language, code, driverCode = "", input = "", timeLimit = 2, memoryLimit = 256) => {
+export const executeCode = async (
+  language,
+  code,
+  driverCode = "",
+  input = "",
+  timeLimit = 2,
+  memoryLimit = 256
+) => {
   const config = LANGUAGE_CONFIG[language];
+
   if (!config) {
     throw new Error(`Unsupported language: ${language}`);
   }
 
-  // Generate unique execution directory
   const runId = crypto.randomUUID();
   const tempDir = path.resolve(`./temp/${runId}`);
-  
-  const filename = language === "java" ? "Solution.java" : `main.${config.extension}`;
+
+  console.log("================================");
+  console.log("[EXECUTION START]");
+  console.log("Run ID:", runId);
+  console.log("Language:", language);
+  console.log("Temp Dir:", tempDir);
+
+  const filename =
+    language === "java"
+      ? "Solution.java"
+      : `main.${config.extension}`;
+
   const filePath = path.join(tempDir, filename);
   const inputPath = path.join(tempDir, "input.txt");
 
   try {
-    // Setup temp directory
+    console.log("[STEP 1] Creating temp directory...");
     await fs.mkdir(tempDir, { recursive: true });
-    
-    // Write appropriate files based on language
+
+    console.log("[STEP 2] Writing source files...");
+
     if (language === "java") {
       await fs.writeFile(path.join(tempDir, "Solution.java"), code);
+
       if (driverCode) {
-        await fs.writeFile(path.join(tempDir, "Main.java"), driverCode);
+        await fs.writeFile(
+          path.join(tempDir, "Main.java"),
+          driverCode
+        );
       }
     } else {
       let finalCode = code;
+
       if (driverCode) {
         if (language === "cpp") {
-          finalCode = driverCode.replace("/*USER_CODE_HERE*/", code);
+          finalCode = driverCode.replace(
+            "/*USER_CODE_HERE*/",
+            code
+          );
         } else {
           finalCode = code + "\n\n" + driverCode;
         }
       }
+
       await fs.writeFile(filePath, finalCode);
     }
-    
+
     await fs.writeFile(inputPath, input);
 
-    const compileCmd = config.compileCommand ? config.compileCommand(filename) + " && " : "";
+    console.log("[STEP 3] Files created successfully");
+
+    const compileCmd = config.compileCommand
+      ? config.compileCommand(filename) + " && "
+      : "";
+
     const runCmd = config.runCommand(filename);
-    
-    // Construct Docker run command
-    // --rm: Remove container after run
-    // --network none: Disable network access
-    // -v: Mount temp dir to /app
-    // -w /app: Set working directory
-    // --memory: Enforce memory limit
+
     const dockerCmd = `docker run --rm --network none -v ${tempDir}:/app -w /app --memory ${memoryLimit}m ${config.image} sh -c "${compileCmd}cat input.txt | timeout ${timeLimit}s ${runCmd}"`;
 
-    const startTime = Date.now();
-    let result = { stdout: "", stderr: "", error: null, executionTime: 0 };
+    console.log("[STEP 4] Docker command:");
+    console.log(dockerCmd);
+
+    console.log("[STEP 5] Checking docker availability...");
 
     try {
-      const { stdout, stderr } = await execAsync(dockerCmd, { timeout: (timeLimit + 2) * 1000 });
+      const { stdout: dockerVersion } = await execAsync(
+        "docker --version"
+      );
+
+      console.log(
+        "[DOCKER VERSION]",
+        dockerVersion.trim()
+      );
+    } catch (e) {
+      console.error(
+        "[DOCKER CHECK FAILED]",
+        e.message
+      );
+    }
+
+    console.log("[STEP 6] Running container...");
+
+    const startTime = Date.now();
+
+    let result = {
+      stdout: "",
+      stderr: "",
+      error: null,
+      executionTime: 0,
+    };
+
+    try {
+      const { stdout, stderr } = await execAsync(
+        dockerCmd,
+        {
+          timeout: (timeLimit + 2) * 1000,
+        }
+      );
+
+      console.log("[DOCKER SUCCESS]");
+      console.log("STDOUT:", stdout);
+      console.log("STDERR:", stderr);
+
       result.stdout = stdout;
       result.stderr = stderr;
     } catch (execError) {
+      console.error("[DOCKER ERROR]");
+      console.error("Message:", execError.message);
+      console.error("Code:", execError.code);
+      console.error("Killed:", execError.killed);
+      console.error("STDOUT:", execError.stdout);
+      console.error("STDERR:", execError.stderr);
+
       result.stdout = execError.stdout || "";
       result.stderr = execError.stderr || "";
-      
+
       if (execError.killed) {
         result.error = "Time Limit Exceeded";
-      } else if (execError.code === 137) { // Docker OOM kill code
+      } else if (execError.code === 137) {
         result.error = "Memory Limit Exceeded";
-      } else if (execError.code === 124) { // timeout command kill code
+      } else if (execError.code === 124) {
         result.error = "Time Limit Exceeded";
       } else {
         result.error = "Runtime Error";
@@ -113,15 +185,29 @@ export const executeCode = async (language, code, driverCode = "", input = "", t
     }
 
     result.executionTime = Date.now() - startTime;
-    return result;
 
+    console.log("[EXECUTION COMPLETE]");
+    console.log(result);
+
+    return result;
   } finally {
-    // Cleanup
+    console.log("[STEP 7] Cleaning up:", tempDir);
+
     try {
-      await fs.rm(tempDir, { recursive: true, force: true });
+      await fs.rm(tempDir, {
+        recursive: true,
+        force: true,
+      });
+
+      console.log("[CLEANUP SUCCESS]");
     } catch (e) {
-      console.error(`Failed to cleanup temp dir ${tempDir}`, e);
+      console.error(
+        "[CLEANUP FAILED]",
+        e
+      );
     }
+
+    console.log("================================");
   }
 };
 
