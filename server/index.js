@@ -17,7 +17,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(
   cors({
-    origin: ["http://localhost:5173","https://codelab-imksh.netlify.app", "https://codelab.imksh.online"],
+    origin: ["http://localhost:5173","https://codelab-imksh.netlify.app", "https://codelab.imksh.online",process.env.CLIENT_URL],
     credentials: true,
   }),
 );
