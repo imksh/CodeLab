@@ -14,9 +14,9 @@ export const genToken = async (user, res) => {
     console.log(token);
     res.cookie("token", token, {
       maxAge: 1000 * 60 * 60 * 24,
-      httpOnly: true,
-      secure: false,
-      sameSite: "lax",
+      httpOnly: process.env.NODE_ENV !== "production" ? false : true,
+      secure: process.env.NODE_ENV !== "production" ? false : true,
+      sameSite: process.env.NODE_ENV !== "production" ? "lax" : "none",
     });
     return token;
   } catch (error) {

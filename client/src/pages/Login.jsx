@@ -5,8 +5,8 @@ import { Code2, Mail, Lock, Loader2 } from "lucide-react";
 import useAuthStore from "../store/useAuthStore";
 
 const Login = () => {
-  const [email, setEmail] = useState("karan03945@gmail.com");
-  const [password, setPassword] = useState("ksh777");
+  const [email, setEmail] = useState("demo@codelab.com");
+  const [password, setPassword] = useState("demo@123");
   const { login, isLoggingIn } = useAuthStore();
   const navigate = useNavigate();
 

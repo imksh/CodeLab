@@ -6,9 +6,13 @@ import submissionRoutes from "./submission.route.js";
 
 const router = express.Router();
 
-// Health check
 router.get("/", (req, res) => {
-  res.json({ status: "ok", timestamp: new Date().toISOString() });
+  res.status(200).json({message:"Hello Developers"});
+});
+
+// Health check
+router.get("/health", (req, res) => {
+  res.status(200).json({ message: "Codelab server is running",  timestamp: new Date().toISOString() });
 });
 
 router.use("/auth", authRoutes);
