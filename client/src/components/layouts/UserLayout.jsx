@@ -18,9 +18,9 @@ const UserLayout = () => {
   }
 
   return (
-    <div className={`min-h-dvh flex flex-col transition-colors duration-300 ${theme === "dark" ? "bg-base-100" : "bg-base-200"}`}>
+    <div className={`h-dvh w-full flex flex-col overflow-hidden transition-colors duration-300 ${theme === "dark" ? "bg-base-100" : "bg-base-200"}`}>
       <Navbar />
-      <div className="flex-1 flex flex-col relative overflow-hidden">
+      <div className="flex-1 min-h-0 relative flex flex-col">
         <AnimatePresence mode="wait">
           <motion.div
             key={location.pathname}
@@ -28,7 +28,11 @@ const UserLayout = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="flex-1 flex flex-col w-full h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8"
+            className={`flex-1 min-h-0 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ${
+              location.pathname === '/problems' 
+                ? 'py-4 overflow-hidden flex flex-col' 
+                : 'py-8 overflow-y-auto'
+            }`}
           >
             <Outlet />
           </motion.div>

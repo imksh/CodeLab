@@ -5,7 +5,8 @@ import Code from "../components/Code";
 import useUiStore from "../store/useUiStore";
 import { motion } from "framer-motion";
 import api  from "../config/api";
-import { Loader2 } from "lucide-react";
+import { Loader2, Code2, ArrowLeft } from "lucide-react";
+import useMobileBack from "../hooks/useMobileBack";
 
 const CodeLab = () => {
   const { id } = useParams();
@@ -16,6 +17,13 @@ const CodeLab = () => {
 
   const [problemData, setProblemData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+
+  // Mobile responsiveness states
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const [showMobileCode, setShowMobileCode] = useState(false);
+
+  // Hook to handle browser back button
+  useMobileBack(showMobileCode, () => setShowMobileCode(false));
 
   const userSubmits = (status) => {
     setProblemData((prev) => ({
@@ -42,6 +50,12 @@ const CodeLab = () => {
     };
     fetchProblem();
   }, [id, navigate]);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     const handleMouseMove = (e) => {
@@ -81,28 +95,31 @@ const CodeLab = () => {
 
   return (
     <div
-      className={`h-full flex flex-col  text-base-content/80 font-sans overflow-hidden ${
+      className={`h-full flex flex-col text-base-content/80 font-sans overflow-hidden relative ${
         theme === "dark" ? "bg-black" : "bg-white"
       }`}
     >
       {/* Main Workspace */}
       <div className="flex-1 flex gap-0.5 p-2 overflow-hidden h-[calc(100vh-3rem)]">
-        {/* Left Panel */}
+        {/* Left Panel (Problem) */}
         <motion.div
+          initial={false}
           animate={{
-            width: maximizeView ? "0%" : `${leftWidth}%`,
-            opacity: maximizeView ? 0 : 1,
+            width: isMobile ? "100%" : maximizeView ? "0%" : `${leftWidth}%`,
+            opacity: isMobile ? 1 : maximizeView ? 0 : 1,
           }}
           transition={{ duration: isDragging ? 0 : 0.3, ease: "easeInOut" }}
-          className={`flex flex-col bg-base-100 rounded-lg overflow-hidden border border-base-300/30 ${
-            maximizeView ? "border-none pointer-events-none" : ""
+          className={`flex-col bg-base-100 rounded-lg overflow-hidden border border-base-300/30 ${
+            isMobile && showMobileCode ? "hidden" : "flex"
+          } ${
+            maximizeView && !isMobile ? "border-none pointer-events-none" : ""
           }`}
         >
           <Problem data={problemData} />
         </motion.div>
 
         {/* Resizer */}
-        {!maximizeView && (
+        {!maximizeView && !isMobile && (
           <div
             onMouseDown={(e) => {
               e.preventDefault();
@@ -114,17 +131,42 @@ const CodeLab = () => {
           </div>
         )}
 
-        {/* Right Panel */}
+        {/* Right Panel (Code) */}
         <motion.div
+          initial={false}
           animate={{
-            width: maximizeView ? "100%" : `${100 - leftWidth}%`,
+            width: isMobile ? "100%" : maximizeView ? "100%" : `${100 - leftWidth}%`,
           }}
           transition={{ duration: isDragging ? 0 : 0.3, ease: "easeInOut" }}
-          className="flex flex-col gap-2 overflow-hidden"
+          className={`flex-col gap-2 overflow-hidden ${
+            isMobile && !showMobileCode ? "hidden" : "flex"
+          }`}
         >
           <Code data={problemData} userSubmits={userSubmits} />
         </motion.div>
       </div>
+
+      {/* Floating Code Button for Mobile */}
+      {isMobile && !showMobileCode && (
+        <button
+          onClick={() => setShowMobileCode(true)}
+          className="fixed bottom-6 right-6 bg-primary text-primary-content px-4 py-3 rounded-full shadow-xl z-50 flex items-center gap-2 hover:bg-primary-focus transition-colors active:scale-95"
+        >
+          <Code2 size={20} />
+          <span className="font-semibold">Code</span>
+        </button>
+      )}
+
+      {/* Floating Problem Button for Mobile */}
+      {isMobile && showMobileCode && (
+        <button
+          onClick={() => setShowMobileCode(false)}
+          className="fixed bottom-6 left-6 bg-base-200 text-base-content px-4 py-3 rounded-full shadow-xl z-50 flex items-center gap-2 border border-base-300 hover:bg-base-300 transition-colors active:scale-95"
+        >
+          <ArrowLeft size={20} />
+          <span className="font-semibold">Problem</span>
+        </button>
+      )}
     </div>
   );
 };

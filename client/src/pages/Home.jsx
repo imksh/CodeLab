@@ -105,7 +105,7 @@ const Home = () => {
                 </Link>
                 <Link
                   to="/problems"
-                  className="btn btn-outline btn-lg rounded-xl px-8 w-full sm:w-auto"
+                  className="btn btn-outline btn-lg rounded-xl px-8 w-full sm:w-auto text-base-content hover:bg-primary hover:text-primary-foreground"
                 >
                   View Problems
                 </Link>

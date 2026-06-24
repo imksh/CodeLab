@@ -27,7 +27,7 @@ const Code = ({ data, userSubmits }) => {
   const [selectedResultCase, setSelectedResultCase] = useState(0);
   const [showBottomPanel, setShowBottomPanel] = useState(true);
   const { theme } = useUiStore();
-  const [wordWrap, setWordWrap] = useState(false);
+  const [wordWrap, setWordWrap] = useState(true);
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
   const [isClearModalOpen, setIsClearModalOpen] = useState(false);
   const [example, setExample] = useState(data.examples[0]);
@@ -360,7 +360,7 @@ const Code = ({ data, userSubmits }) => {
                 Test Result
               </div>
             </div>
-            <div className=" h-full gap-2 hidden group-hover:flex px-4 ">
+            <div className=" h-full gap-2 flex md:hidden group-hover:flex px-4 ">
               <button
                 onClick={() => {
                   setMazimize("bottom");

@@ -34,7 +34,7 @@ const Register = () => {
       <motion.div 
         initial={{ scale: 0.95, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
-        className="w-full max-w-md p-8 rounded-3xl bg-base-100 border border-base-300/50 shadow-2xl relative overflow-hidden"
+        className="w-full max-w-md p-8 rounded-3xl bg-base-100 md:border border-base-300/50 md:shadow-2xl relative overflow-hidden"
       >
         <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary to-secondary"></div>
         

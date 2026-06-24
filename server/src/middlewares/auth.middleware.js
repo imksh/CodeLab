@@ -36,4 +36,15 @@ const protectedRoutes = async (req, res, next) => {
   }
 };
 
+export const isAdmin = (req, res, next) => {
+  if (req.user && req.user.role === "admin") {
+    next();
+  } else {
+    return next({
+      status: 403,
+      message: "Forbidden! Admin access required.",
+    });
+  }
+};
+
 export default protectedRoutes;

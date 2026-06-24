@@ -58,6 +58,7 @@ const useAuthStore = create((set) => ({
       const res = await api.post("/auth/login", data);
       set({ user: res.data.data });
       toast.success("Logged in successfully");
+      return res.data.data;
     } catch (error) {
       toast.error(error.response?.data?.message || "Invalid credentials");
       throw error;

@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Code2, User, Moon, Sun, LogOut } from "lucide-react";
 import useUiStore from "../../store/useUiStore";
 import useAuthStore from "../../store/useAuthStore";
+import { PiLineVertical } from "react-icons/pi";
 
 const Navbar = () => {
   const { theme, toggleTheme } = useUiStore();
@@ -10,7 +11,7 @@ const Navbar = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    document.documentElement.setAttribute('data-theme', theme);
+    document.documentElement.setAttribute("data-theme", theme);
   }, [theme]);
 
   const handleLogout = async () => {
@@ -19,11 +20,13 @@ const Navbar = () => {
   };
 
   return (
-    <nav className={`sticky top-0 z-50 w-full backdrop-blur-lg border-b border-base-300/30 transition-colors duration-300 ${
+    <nav
+      className={`h-[8dvh] sticky top-0 z-50 w-full backdrop-blur-lg border-b border-base-300/30 transition-colors duration-300 ${
         theme === "dark" ? "bg-base-100/80" : "bg-white/80"
-    }`}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
+      }`}
+    >
+      <div className="max-w-7xl h-full  w-full mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between h-full items-center">
           {/* Left: Logo & Main Links */}
           <div className="flex items-center gap-8">
             <Link to="/" className="flex items-center gap-2 group">
@@ -36,7 +39,21 @@ const Navbar = () => {
             </Link>
 
             <div className="hidden md:flex items-center gap-1">
-              <Link to="/problems" className="px-4 py-2 rounded-lg text-sm font-medium text-base-content/70 hover:text-base-content hover:bg-base-200/50 transition-all">
+              {user?.role === "admin" && (
+                <>
+                  <Link
+                    to="/admin"
+                    className="px-4 py-2 rounded-lg text-sm font-medium text-base-content/70 hover:text-base-content hover:bg-base-200/50 transition-all"
+                  >
+                    Admin Dashboard
+                  </Link>
+                  <PiLineVertical />
+                </>
+              )}
+              <Link
+                to="/problems"
+                className="px-4 py-2 rounded-lg text-sm font-medium text-base-content/70 hover:text-base-content hover:bg-base-200/50 transition-all"
+              >
                 Problems
               </Link>
             </div>
@@ -44,27 +61,36 @@ const Navbar = () => {
 
           {/* Right: Auth & Theme */}
           <div className="flex items-center gap-2">
-            <button 
+            <button
               onClick={toggleTheme}
               className="p-2 text-base-content/70 hover:text-base-content hover:bg-base-content/10 rounded-full transition-colors flex items-center justify-center"
-              title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+              title={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
             >
               {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
             </button>
 
             {user ? (
               <div className="flex items-center gap-3 border-l border-base-300 pl-2">
-                <Link to="/profile" className="flex items-center gap-2 px-3 py-1.5 rounded-lg hover:bg-base-200/50 transition-colors">
+                <Link
+                  to="/profile"
+                  className="flex items-center gap-2 px-3 py-1.5 rounded-lg hover:bg-base-200/50 transition-colors"
+                >
                   {user.avatar?.url ? (
-                    <img src={user.avatar.url} alt="Avatar" className="w-8 h-8 rounded-full object-cover border border-base-300" />
+                    <img
+                      src={user.avatar.url}
+                      alt="Avatar"
+                      className="w-8 h-8 rounded-full object-cover border border-base-300"
+                    />
                   ) : (
                     <div className="w-8 h-8 rounded-full bg-primary/10 text-primary flex items-center justify-center">
                       <User size={16} />
                     </div>
                   )}
-                  <span className="text-sm font-medium text-base-content hidden sm:block">{user.name}</span>
+                  <span className="text-sm font-medium text-base-content hidden sm:block">
+                    {user.name}
+                  </span>
                 </Link>
-                <button 
+                <button
                   onClick={handleLogout}
                   className="p-2 text-base-content/70 hover:text-error hover:bg-error/10 rounded-lg transition-colors"
                   title="Logout"
@@ -74,10 +100,16 @@ const Navbar = () => {
               </div>
             ) : (
               <div className="flex items-center gap-2 border-l border-base-300/50 pl-4">
-                <Link to="/login" className="px-4 py-2 text-sm font-medium text-base-content hover:text-primary transition-colors">
+                <Link
+                  to="/login"
+                  className="px-4 py-2 text-sm font-medium text-base-content hover:text-primary transition-colors"
+                >
                   Log in
                 </Link>
-                <Link to="/register" className="px-4 py-2 rounded-lg text-sm font-medium bg-primary text-primary-content hover:bg-primary/90 transition-colors shadow-sm shadow-primary/20">
+                <Link
+                  to="/register"
+                  className="px-4 py-2 rounded-lg text-sm font-medium bg-primary text-primary-content hover:bg-primary/90 transition-colors shadow-sm shadow-primary/20"
+                >
                   Sign up
                 </Link>
               </div>

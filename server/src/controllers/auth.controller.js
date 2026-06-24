@@ -5,7 +5,7 @@ import Otp from "../models/otp.model.js";
 import { sendOtpEmail } from "../utils/emailService.js";
 import genOtpToken from "../utils/genOtpToken.js";
 import cloudinary from "../config/cloudinary.js";
-import { Submission } from "../models/submission.model.js";
+import {Submission}  from "../models/submission.model.js";
 import { Problem } from "../models/problem.model.js";
 
 export const signup = async (req, res, next) => {

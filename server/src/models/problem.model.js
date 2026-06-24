@@ -147,6 +147,32 @@ const problemSchema = new Schema(
       type: solutionSchema,
     },
 
+    tags: {
+      type: [String],
+      default: [],
+    },
+
+    companies: {
+      type: [String],
+      default: [],
+    },
+
+    topics: {
+      type: [String],
+      default: [],
+    },
+
+    solutionCode: {
+      type: String,
+      default: "",
+    },
+
+    attachment: {
+      url: { type: String, default: "" },
+      publicId: { type: String, default: "" },
+      type: { type: String, enum: ["url", "video", "pdf", "image", "zip", ""], default: "" },
+    },
+
     likes: Number,
     dislikes: Number
   },

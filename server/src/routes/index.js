@@ -3,6 +3,7 @@ import authRoutes from "./auth.route.js";
 import problemRoutes from "./problem.route.js";
 import userRoutes from "./user.route.js";
 import submissionRoutes from "./submission.route.js";
+import adminRoutes from "./admin.route.js";
 
 const router = express.Router();
 
@@ -19,5 +20,6 @@ router.use("/auth", authRoutes);
 router.use("/problems", problemRoutes);
 router.use("/users", userRoutes);
 router.use("/submissions", submissionRoutes);
+router.use("/admin", adminRoutes);
 
 export default router;

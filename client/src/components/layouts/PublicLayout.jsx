@@ -8,9 +8,9 @@ const PublicLayout = () => {
   const { theme } = useUiStore();
 
   return (
-    <div className={`min-h-dvh flex flex-col transition-colors duration-300 ${theme === "dark" ? "bg-base-100" : "bg-base-200"}`}>
+    <div className={`h-dvh w-full flex flex-col overflow-hidden transition-colors duration-300 ${theme === "dark" ? "bg-base-100" : "bg-base-200"}`}>
       <Navbar />
-      <div className="flex-1 flex flex-col relative overflow-hidden">
+      <div className="flex-1 min-h-0 relative flex flex-col">
         <AnimatePresence mode="wait">
           <motion.div
             key={location.pathname}
@@ -18,7 +18,7 @@ const PublicLayout = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="flex-1 flex flex-col w-full h-full"
+            className="flex-1 min-h-0 w-full overflow-y-auto flex flex-col"
           >
             <Outlet />
           </motion.div>

@@ -7,13 +7,27 @@ export const getProblems = async (req, res, next) => {
     const limit = parseInt(req.query.limit, 10) || 10;
     const skip = (page - 1) * limit;
 
-    const problems = await Problem.find()
+    const { tags, topics, companies, difficulty, search } = req.query;
+    
+    const filter = {};
+    if (tags) filter.tags = { $in: tags.split(',') };
+    if (topics) filter.topics = { $in: topics.split(',') };
+    if (companies) filter.companies = { $in: companies.split(',') };
+    if (difficulty) filter.difficulty = difficulty;
+    if (search) {
+      filter.$or = [
+        { title: { $regex: search, $options: "i" } },
+        { description: { $regex: search, $options: "i" } }
+      ];
+    }
+
+    const problems = await Problem.find(filter)
       .sort({ number: 1 })
       .select("-testCases") // Hide test cases for list
       .skip(skip)
       .limit(limit);
 
-    const total = await Problem.countDocuments();
+    const total = await Problem.countDocuments(filter);
     const totalPages = Math.ceil(total / limit);
 
     const submissions = await Submission.find({
